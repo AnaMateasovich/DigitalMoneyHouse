@@ -1,5 +1,5 @@
 import client from '@/app/lib/redis';
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 import { v4 as uuidv4 } from "uuid";
 import * as yup from 'yup'
 
@@ -8,13 +8,11 @@ const schema = yup.object({
     password: yup.string().required()
 }).required()
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method !== "POST") {
-        return res.status(405).json({ error: "Method not allowed" })
-    }
+export async function POST(req: NextRequest) {
 
     try {
-        const { email, password } = await schema.validate(req.body)
+        const body = await req.json()
+        const { email, password } = await schema.validate(body)
 
         // Get token from external API
         const externalRes = await fetch("https://digitalmoney.digitalhouse.com/api/login", {
@@ -24,7 +22,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         });
 
         if (!externalRes.ok) {
-            return res.status(401).json({ error: "Invalid credentials" });
+            return NextResponse.json(
+                {error: "Invalid credentials"},
+                {status: 401}
+            )
         }
 
         const tokenResponse = await externalRes.json()
@@ -35,17 +36,27 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         // Save in redis with 1hr expiration
         await client.set(`session:${sessionId}`, jwtToken, { EX: 3600 })
-
-        // Set cookie (sin Secure para desarrollo)
-        res.setHeader(
-            "Set-Cookie",
-            `sessionId=${sessionId}; HttpOnly; Path=/; Max-Age=3600`
+        
+        const res = NextResponse.json(
+            {message: "Logged in saccessfully"},
+            {status: 200}
         )
 
-        return res.status(200).json({ message: "Logged in successfully" })
+        // Set cookie (sin Secure para desarrollo)
+        res.cookies.set({
+            name: 'sessionId',
+            value: sessionId,
+            httpOnly: true,
+            path: '/',
+            maxAge: 3600,
+            // secure: true,
+            // sameSite: 'strict'
+        })
+
+        return res
         
     } catch (e) {
         console.error('❌ Error en login:', e)
-        return res.status(500).json({ error: 'Internal server error' })
+        return NextResponse.json({ error: 'Internal server error' }, {status: 500})
     }
 }

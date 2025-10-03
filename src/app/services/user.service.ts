@@ -1,7 +1,7 @@
 import { NewUserResponse } from "../types/newUserResponse.types"
 import { TokenResponse } from "../types/tokenResponse.types"
 import { AccountService } from "./account.service"
-import { apiClient, BASE_URL } from "../../pages/api/apiClient"
+import { apiClient, BASE_URL } from "./apiClient"
 import { User } from "../types/user.type"
 
 export const UserService = {

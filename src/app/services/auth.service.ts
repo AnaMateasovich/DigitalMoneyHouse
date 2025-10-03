@@ -1,13 +1,11 @@
-import { NewUserResponse } from "../types/newUserResponse.types";
 import { TokenRequest } from "../types/tokenRequest.types";
 import { TokenResponse } from "../types/tokenResponse.types";
-import {  authenticatedApiClient, EXTERNAL_URL} from "../../pages/api/apiClient";
-import { NextApiRequest } from "next";
+import { authenticatedApiClient, EXTERNAL_API } from "./apiClient";
 
 export const AuthService = {
 
     async login(credentials: TokenRequest): Promise<TokenResponse> {
-        return authenticatedApiClient<TokenResponse>(`${EXTERNAL_URL}/api/login`, {
+        return authenticatedApiClient<TokenResponse>(`${EXTERNAL_API}/api/login`, {
             method: 'POST',
             body: JSON.stringify(credentials)
         })

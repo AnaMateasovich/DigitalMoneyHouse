@@ -1,50 +1,33 @@
 import { Card } from "../types/card.types";
 import { CardRequest } from "../types/cardRequest.types";
-import { TokenResponse } from "../types/tokenResponse.types";
 import { AccountService } from "./account.service";
-import { apiClient, BASE_URL } from "../../pages/api/apiClient";
+import { authenticatedApiClient, EXTERNAL_API } from "./apiClient";
 
 export const CardsService = {
 
-    async getCards(token: TokenResponse): Promise<Card[]> {
-        const account = await AccountService.getProfile(token)
-        const accountId = account.id
-        return apiClient(`${BASE_URL}/api/accounts/${accountId}/cards`, {
+    async getCards(): Promise<Card[]> {
+        const account = await AccountService.getProfile()
+        return authenticatedApiClient(`${EXTERNAL_API}/api/accounts/${account.id}/cards`, {
             method: 'GET',
-            headers: {
-                Authorization: token.token
-            }
         })
     },
-    async createCard(token: TokenResponse, card: CardRequest): Promise<Card> {
-        const account = await AccountService.getProfile(token)
-        const accountId = account.id
-        return apiClient(`${BASE_URL}/api/accounts/${accountId}/cards`, {
+    async createCard(card: CardRequest): Promise<Card> {
+        const account = await AccountService.getProfile()
+        return authenticatedApiClient(`${EXTERNAL_API}/api/accounts/${account.id}/cards`, {
             method: 'POST',
-            headers: {
-                Authorization: token.token
-            },
             body: JSON.stringify(card)
         })
     },
-    async getCardById(token: TokenResponse, cardId: number): Promise<Card> {
-        const account = await AccountService.getProfile(token)
-        const accountId = account.id
-        return apiClient(`${BASE_URL}/api/accounts/${accountId}/cards/${cardId}`, {
+    async getById(id: string): Promise<Card> {
+        const account = await AccountService.getProfile()
+        return authenticatedApiClient(`${EXTERNAL_API}/api/accounts/${account.id}/cards/${id}`, {
             method: 'GET',
-            headers: {
-                Authorization: token.token
-            }
         })
     },
-    async deleteCardById(token: TokenResponse, cardId: number): Promise<Card> {
-        const account = await AccountService.getProfile(token)
-        const accountId = account.id
-        return apiClient(`${BASE_URL}/api/accounts/${accountId}/cards/${cardId}`, {
+    async deleteById(id: string): Promise<Card> {
+        const account = await AccountService.getProfile()
+        return authenticatedApiClient(`${EXTERNAL_API}/api/accounts/${account.id}/cards/${id}`, {
             method: 'DELETE',
-            headers: {
-                Authorization: token.token
-            }
         })
     },
 }

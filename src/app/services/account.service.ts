@@ -1,23 +1,18 @@
-import { NextApiRequest } from "next"
 import { Account } from "../types/account.types"
 import { AliasRequest } from "../types/alias.types"
-import { TokenResponse } from "../types/tokenResponse.types"
-import { authenticatedApiClient, EXTERNAL_API } from "../../pages/api/apiClient"
+import { authenticatedApiClient, EXTERNAL_API } from "./apiClient"
 
 export const AccountService = {
-    // async getProfile(req: NextApiRequest): Promise<Account> {
-    //     return authenticatedApiClient<Account>(req, `${EXTERNAL_API}/api/account`, {
-    //         method: 'GET'
-    //     })
-    // },
+    async getProfile(): Promise<Account> {
+        return authenticatedApiClient<Account>(`${EXTERNAL_API}/api/account`, {
+            method: 'GET'
+        })
+    },
 
-    async updateAlias(req: NextApiRequest, newAlias: AliasRequest): Promise<Account> {
-        
-        return authenticatedApiClient<Account>(req, `${EXTERNAL_API}/api/accounts/${accountId}`, {
+    async updateAlias(newAlias: AliasRequest): Promise<Account> {
+        const account = await AccountService.getProfile()
+        return authenticatedApiClient<Account>( `${EXTERNAL_API}/api/accounts/${account.id}`, {
             method: 'PATCH',
-            headers: {
-                Authorization: token.token
-            },
             body:
                 JSON.stringify(newAlias),
         })
