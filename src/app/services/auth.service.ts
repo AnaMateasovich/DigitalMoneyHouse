@@ -12,5 +12,10 @@ export const AuthService = {
 
     },
 
+     async logut(): Promise<TokenResponse> {
+        return authenticatedApiClient<TokenResponse>(`${EXTERNAL_API}/api/logout`, {
+            method: 'POST',
+        })
 
+    },
 }

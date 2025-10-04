@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server"
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
     try {
         const {id} = await params
-        const card = await CardsService.getById(params.id)
+        const card = await CardsService.getById(id)
 
         if (!card) {
             return NextResponse.json(
