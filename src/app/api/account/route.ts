@@ -1,12 +1,14 @@
 import { AccountService } from "@/app/services/account.service";
+import { UserService } from "@/app/services/user.service";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
 
     try {
-        const profile = await AccountService.getProfile()
+        const account = await AccountService.getProfile()
+        const user = await UserService.getUserData(account.user_id.toString())
 
-        return NextResponse.json(profile)
+        return NextResponse.json({account, user})
 
     } catch (error) {
         if (error instanceof Error) {

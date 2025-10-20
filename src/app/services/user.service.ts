@@ -1,13 +1,13 @@
 import { NewUserResponse } from "../types/newUserResponse.types"
 import { TokenResponse } from "../types/tokenResponse.types"
 import { AccountService } from "./account.service"
-import { authenticatedApiClient, EXTERNAL_API } from "./apiClient"
+import { authenticatedApiClient, EXTERNAL_API, externalApi } from "./apiClient"
 import { User } from "../types/user.type"
 
 export const UserService = {
 
     async register(newUser: User): Promise<NewUserResponse> {
-        return authenticatedApiClient<NewUserResponse>(`${EXTERNAL_API}/api/users`, {
+        return externalApi<NewUserResponse>(`${EXTERNAL_API}/api/users`, {
             method: 'POST',
             body: JSON.stringify(newUser)
         })

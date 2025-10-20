@@ -23,8 +23,8 @@ export async function POST(req: NextRequest) {
 
         if (!externalRes.ok) {
             return NextResponse.json(
-                {error: "Invalid credentials"},
-                {status: 401}
+                {error: "User not found"},
+                {status: 404}
             )
         }
 
@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
         await client.set(`session:${sessionId}`, jwtToken, { EX: 3600 })
         
         const res = NextResponse.json(
-            {message: "Logged in saccessfully"},
+            {message: "Logged in successfully"},
             {status: 200}
         )
 
