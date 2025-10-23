@@ -37,7 +37,7 @@ const Input = ({ fieldName, type, placeholder, styles, errorText, validations = 
         type={type}
         placeholder={placeholder}
      
-        className={`w-full placeholder:text-gray-500 rounded-lg py-3 px-4  text-black md:py-4 ${errors[fieldName] ? 'bg-red-100 border-2 border-red-500 ' : 'bg-white'} ${styles}`} />
+        className={`w-full placeholder:text-gray-500 rounded-lg py-3 px-4  text-[#201F22] md:py-4 ${errors[fieldName] ? 'bg-red-100 border-2 border-red-500 ' : 'bg-white'} ${styles}`} />
       {errors[fieldName] && <p className='absolute -bottom-5 left-2 text-red-400 text-xs md:text-sm md:-bottom-6'>
         {(errors[fieldName]?.message as string) || errorText}
       </p>}

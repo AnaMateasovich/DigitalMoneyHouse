@@ -9,6 +9,7 @@ interface AuthContextType {
     isAuthenticated: boolean
     isLoading: boolean
     refreshUser: () => Promise<void>
+    fullNameFormatUser: (user?: User | null) => string
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -44,14 +45,29 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     useEffect(() => {
       fetchUser()
     }, [])
-    
+
+        const capitalizeFirstLetter = (str: string): string | undefined => {
+        if (str.length === 0) {
+            return
+        }
+        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
+    }
+
+    const fullNameFormatUser = (): string => {
+        if(!user) return ""
+        const name = capitalizeFirstLetter(user.firstname)
+        const lastname = capitalizeFirstLetter(user.lastname)
+        const fullname = name + " " + lastname
+        return fullname
+    }
     return (
         <AuthContext.Provider value={{
             user,
             account,
             isAuthenticated: !!user,
             isLoading,
-            refreshUser: fetchUser
+            refreshUser: fetchUser,
+            fullNameFormatUser
         }}>
             {children}
         </AuthContext.Provider>

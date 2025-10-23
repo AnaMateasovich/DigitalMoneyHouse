@@ -1,4 +1,5 @@
 'use client'
+import { ReactNode } from 'react'
 import '../app/globals.css'
 
 type ButtonVariant = 'primary' | 'secondary' | 'outline-primary' | 'outline-secondary' | 'light' 
@@ -9,9 +10,11 @@ type ButtonProps = {
   onClick?: () => void
   className?: string
   type?: string
+  iconRight?: ReactNode 
+  iconLeft?: ReactNode
 }
 
-const Button = ({ text, variant = 'primary', onClick, className = '', type = "button"}: ButtonProps) => {
+const Button = ({ text, variant = 'primary', onClick, className = '', type = "button", iconRight, iconLeft}: ButtonProps) => {
 
   const variants = {
     primary: 'bg-[var(--color-primary)] text-[var(--color-secondary)] border-[var(--color-primary)]',
@@ -27,7 +30,13 @@ const Button = ({ text, variant = 'primary', onClick, className = '', type = "bu
 
   return (
     <div className='flex'>
-      <button onClick={onClick} className={`${variants[variant]} border-2 text btn1 py-2 px-2 rounded-md whitespace-nowrap md:px-6 cursor-pointer ${className}`}>{text}</button>
+      
+      <button onClick={onClick} className={`${variants[variant]} ${iconLeft || iconRight && "flex justify-between items-center"} border-2 text btn1 py-2 px-2 rounded-md whitespace-nowrap md:px-6 cursor-pointer ${className}`}>
+        {iconLeft && <span className="flex items-center">{iconLeft}</span>}
+        <span>{text}</span>
+        {iconRight && <span className="flex items-center">{iconRight}</span>}
+
+        </button>
     </div>
   )
 }

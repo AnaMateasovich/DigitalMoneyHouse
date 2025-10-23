@@ -5,7 +5,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     try {
         const { id } = await params
 
-        const transaction = await TransactionsService.getById(params.id)
+        const transaction = await TransactionsService.getById(id)
 
         if (!transaction) {
             return NextResponse.json(

@@ -3,5 +3,4 @@ export type TransferenceRequest = {
     dated: string
     destination: string
     origin: string
-
 }

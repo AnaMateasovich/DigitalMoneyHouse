@@ -1,18 +1,22 @@
-import BackNavigation from '@/components/BackNavigation'
+import CurrentLocation from '@/components/CurrentLocation'
 import Button from '@/components/Button'
+import ActivityCard from '@/components/dashboard/ActivityCard'
 import DashboardMainCard from '@/components/dashboard/DashboardMainCard'
+import SearchBar from '@/components/dashboard/SearchBar'
 import React from 'react'
 
 const page = () => {
   return (
-    <main className='bg-gray-100 p-4'>
-      <BackNavigation to="/" containerClass='mb-4' text='Inicio' />
+    <>
+      <CurrentLocation containerClass='mb-4' text='Inicio' />
       <DashboardMainCard />
       <div className='w-full flex flex-col gap-4 my-4'>
         <Button text='Ingresar dinero' className='w-full py-4 shadow-gray-300 shadow-md'/>
         <Button text='Pago de servicios' className='w-full py-4 shadow-gray-300 shadow-md'/>
       </div>
-    </main>
+      <SearchBar placeholder='Buscar en tu actividad' className='my-2'/>
+      <ActivityCard className='my-4'/>
+    </>
   )
 }
 

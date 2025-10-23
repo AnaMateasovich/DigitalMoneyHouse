@@ -7,6 +7,7 @@ const DashboardMainCard = () => {
 const {account} = useAuth()
 console.log(account)
   return (
+    // Bg can be secondary color but looks nice in gray-900
     <div className='bg-gray-900 rounded-xl p-6 text-white '>
       <div className='flex gap-2 justify-end'>
         <button className='underline'>Ver tarjetas</button>

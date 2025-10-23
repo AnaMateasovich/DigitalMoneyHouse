@@ -1,30 +1,23 @@
 'use client'
 import Image from 'next/image'
 import React, { useState } from 'react'
-import Button from './Button'
+import Button from '../Button'
 import { usePathname, useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/AuthContext'
 import { Menu } from 'lucide-react';
+import { useToggleMenu } from '@/contexts/ToggleMenuContext'
 
 
 const Header = () => {
 
     const pathname = usePathname()
-    const darkHeader = pathname === '/' || pathname === '/dashboard'
+    const darkHeader = pathname === '/' || pathname.startsWith('/dashboard')
     const router = useRouter()
-    const { user, isLoading, isAuthenticated } = useAuth()
-    const [toggleMenu, setToggleMenu] = useState<boolean>(false)
-
-
-    const capitalizeFirstLetter = (str: string): string | undefined => {
-        if (str.length === 0) {
-            return
-        }
-        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
-    }
+    const { user, isLoading, isAuthenticated, fullNameFormatUser } = useAuth()
+    const { toggle, openCloseMenu } = useToggleMenu()
 
     return (
-        <header className={`w-full flex items-center h-20 px-4 py-2 justify-between gap-2 ${darkHeader
+        <header className={`relative w-full flex items-center h-20 px-4 py-2 justify-between gap-2 ${darkHeader
             ? 'bg-[var(--color-secondary)]'
             : 'bg-[var(--color-primary)]'
             }`}>
@@ -59,8 +52,8 @@ const Header = () => {
                             <p>{user.lastname.charAt(0).toUpperCase()}</p>
                         </div>
 
-                        <Menu className="text-[var(--color-primary)] md:hidden" size={47} strokeWidth={3} onClick={() => setToggleMenu(!toggleMenu)}/>
-                        <p className={`hidden md:block font-bold text-lg ${darkHeader ? 'text-white' : 'text-[var(--color-secondary)]'}`}>Hola, {capitalizeFirstLetter(user.firstname)}{" "}{capitalizeFirstLetter(user.lastname)}</p>
+                        <Menu className={`text-[var(--color-primary)] transition-transform duration-300 ease-in-out  ${toggle && 'translate-x-full'} md:hidden`} size={47} strokeWidth={3} onClick={() => openCloseMenu()} />
+                        <p className={`hidden md:block font-bold text-lg ${darkHeader ? 'text-white' : 'text-[var(--color-secondary)]'}`}>Hola, {fullNameFormatUser()}</p>
                     </div>
                 </>
             ) : (

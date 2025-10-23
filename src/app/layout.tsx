@@ -1,11 +1,10 @@
+import Header from "@/components/layouts/Header";
+import AuthProvider from "@/contexts/AuthContext";
+import ToggleMenuProvider from "@/contexts/ToggleMenuContext";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import Image from "next/image";
-import Button from "@/components/Button";
-import Header from "@/components/Header";
 import { Suspense } from "react";
-import AuthProvider from "@/contexts/AuthContext";
+import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,17 +35,19 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       >
         <AuthProvider>
+          <ToggleMenuProvider>
 
-          <div className="grid grid-rows-[auto_1fr_auto] min-h-dvh">
-            <Suspense fallback={<div className="h-20 bg-transparent" />}>
-              <Header />
-            </Suspense>
-            {children}
+            <div className="grid grid-rows-[auto_1fr_auto] min-h-dvh">
+              <Suspense fallback={<div className="h-20 bg-transparent" />}>
+                <Header />
+              </Suspense>
+              {children}
 
-            <footer className="w-full h-20 bg-[var(--color-dark)] flex items-center justify-center md:justify-start">
-              <p className="ml-6 text-center">© 2025 Digital Money House</p>
-            </footer>
-          </div>
+              <footer className="w-full h-20 bg-[var(--color-dark)] flex items-center justify-center md:justify-start">
+                <p className="ml-6 text-center">© 2025 Digital Money House</p>
+              </footer>
+            </div>
+          </ToggleMenuProvider>
         </AuthProvider>
 
       </body>
