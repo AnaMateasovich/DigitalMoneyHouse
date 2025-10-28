@@ -72,7 +72,7 @@ const ActivityCard = ({ className }: ActivityCardProps) => {
             <h2 className='font-semibold text-lg'>Tu actividad</h2>
             <hr className='text-gray-300 my-4' />
             <div className='flex flex-col gap-4'>
-                {activity?.slice(-4).reverse().map(transaction => (
+                {activity?.slice(-10).reverse().map(transaction => (
                     <div key={transaction.id}>
                         <div className='flex justify-between' >
                             <div className='flex gap-3'>

@@ -6,7 +6,7 @@ type InputProps = {
   fieldName: string
   placeholder?: string;
   styles?: string
-  type: 'text' | 'password' | 'tel' | 'email' | 'number'
+  type: 'text' | 'password' | 'tel' | 'email' | 'number' | 'date'
   errorText?: string
   validations?: {
     required?: string | boolean

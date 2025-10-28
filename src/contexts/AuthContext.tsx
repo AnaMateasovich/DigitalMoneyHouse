@@ -1,6 +1,7 @@
 'use client'
 import { Account } from "@/app/types/account.types"
 import { User } from "@/app/types/user.type"
+import { useRouter } from "next/navigation"
 import { createContext, useContext, useEffect, useState } from "react"
 
 interface AuthContextType {
@@ -10,11 +11,15 @@ interface AuthContextType {
     isLoading: boolean
     refreshUser: () => Promise<void>
     fullNameFormatUser: (user?: User | null) => string
+    logout: () => void
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+
+    const router = useRouter()
+
 
     const [user, setUser] = useState<User | null>(null)
     const [account, setAccount] = useState<Account | null>(null)
@@ -25,11 +30,11 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             setIsLoading(true)
             const accountRes = await fetch('/api/account')
 
-             if(!accountRes.ok) {
+            if (!accountRes.ok) {
                 setUser(null)
                 return
             }
-           
+
             const data = await accountRes.json()
             setAccount(data.account)
             setUser(data.user)
@@ -41,12 +46,29 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         }
     }
 
+    const logout = async (): Promise<void> => {
+
+        try {
+            const res = await fetch('/api/logout', {
+                method: 'POST'
+            })
+            if (!res.ok) {
+                throw new Error('Error al cerrar sesión');
+            }
+            setUser(null)
+            setAccount(null)
+            router.push('/')
+        
+        } catch (error) {
+            console.error(error)
+        }
+    }
 
     useEffect(() => {
-      fetchUser()
+        fetchUser()
     }, [])
 
-        const capitalizeFirstLetter = (str: string): string | undefined => {
+    const capitalizeFirstLetter = (str: string): string | undefined => {
         if (str.length === 0) {
             return
         }
@@ -54,7 +76,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     const fullNameFormatUser = (): string => {
-        if(!user) return ""
+        if (!user) return ""
         const name = capitalizeFirstLetter(user.firstname)
         const lastname = capitalizeFirstLetter(user.lastname)
         const fullname = name + " " + lastname
@@ -67,7 +89,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             isAuthenticated: !!user,
             isLoading,
             refreshUser: fetchUser,
-            fullNameFormatUser
+            fullNameFormatUser,
+            logout
         }}>
             {children}
         </AuthContext.Provider>

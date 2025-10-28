@@ -40,7 +40,7 @@ const LoginForm = () => {
             const dataResponse = res.json()
             refreshUser()
 
-            router.push("/dashboard");
+            router.push("/");
             router.refresh();
         } catch (e) {
             if (e instanceof AccessDeniedError) {

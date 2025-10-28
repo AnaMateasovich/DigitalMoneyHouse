@@ -1,7 +1,7 @@
 import Image from "next/image";
 import './globals.css'
-import CardHero from "@/components/dashboard/home/CardHero";
-import HeroTextResponsive from "@/components/dashboard/home/HeroTextResponsive";
+import CardHero from "@/components/home/CardHero";
+import HeroTextResponsive from "@/components/home/HeroTextResponsive";
 
 export default function Home() {
 

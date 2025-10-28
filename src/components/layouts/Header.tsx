@@ -6,6 +6,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/AuthContext'
 import { Menu } from 'lucide-react';
 import { useToggleMenu } from '@/contexts/ToggleMenuContext'
+import Link from 'next/link'
 
 
 const Header = () => {
@@ -46,13 +47,16 @@ const Header = () => {
                             className="w-20 h-9 py-1 cursor-pointer"
                             onClick={() => router.push("/")} />
                     </div>
+                
                     <div className='w-full flex gap-3 items-center justify-end '>
+                        <Link href= "/dashboard">
                         <div className={`flex p-2 font-bold text-xl rounded-xl gap-[1px] ${darkHeader ? 'bg-[var(--color-primary)] text-[var(--color-secondary)] ' : 'bg-[var(--color-secondary)] text-[var(--color-primary)] '}`}>
                             <p>{user.firstname.charAt(0).toUpperCase()}</p>
                             <p>{user.lastname.charAt(0).toUpperCase()}</p>
                         </div>
+                        </Link>
 
-                        <Menu className={`text-[var(--color-primary)] transition-transform duration-300 ease-in-out  ${toggle && 'translate-x-full'} md:hidden`} size={47} strokeWidth={3} onClick={() => openCloseMenu()} />
+                        <Menu className={`text-[var(--color-primary)] transition-transform duration-300 ease-in-out ${toggle && 'translate-x-full'} ${!pathname.startsWith('/dashboard') && 'hidden' } md:hidden`} size={47} strokeWidth={3} onClick={() => openCloseMenu()} />
                         <p className={`hidden md:block font-bold text-lg ${darkHeader ? 'text-white' : 'text-[var(--color-secondary)]'}`}>Hola, {fullNameFormatUser()}</p>
                     </div>
                 </>
