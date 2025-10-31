@@ -5,7 +5,7 @@ import React from 'react'
 const page = () => {
     return (
     <>
-        <CurrentLocation containerClass='mb-4' text='Tarjetas' />
+        <CurrentLocation containerClass='mb-4' text='Tarjetas' to='/dashboard/tarjetas' />
         <section className='bg-white p-5 rounded-xl'>
             <FormCreateCreitCard  />
         </section>

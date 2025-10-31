@@ -5,26 +5,29 @@ import React, { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import CreditCardPreview from './CreditCardPreview'
 import Button from '@/components/Button'
+import { useRouter } from 'next/navigation'
 
 
 
 const FormCreateCreitCard = () => {
 
+    const router = useRouter()
     const [error, setError] = useState<string | null>(null)
 
     const methods = useForm<CardRequest>({
-        mode: "onSubmit"
+        mode: "onChange",
+        reValidateMode: "onChange"
     })
-    const { handleSubmit, formState: { isValid } } = methods
+    const { handleSubmit, formState: { errors, isValid } } = methods
 
     const { cod, first_last_name, expiration_date, number_id } = methods.watch();
 
     const onSubmit = async (data: CardRequest) => {
         const paredData = {
             ...data,
-            expiration_date: expiration_date.slice(0,2) + '/20' + expiration_date.slice(2,4),
+            expiration_date: expiration_date.slice(0, 2) + '/20' + expiration_date.slice(2, 4),
             number_id: Number(data.number_id),
-            cod:Number(data.cod)
+            cod: Number(data.cod)
         }
         try {
             const res = await fetch('/api/cards', {
@@ -40,8 +43,7 @@ const FormCreateCreitCard = () => {
                 throw new Error(resError.error || "Error al agregar la tarjeta")
             }
             setError(null)
-            const dataResponse = res.json()
-            console.log(dataResponse)
+            router.push('/dashboard/tarjetas')
         } catch (e) {
             setError('Ocurrio un error al cargar la tarjeta')
             console.error(e)
@@ -51,20 +53,17 @@ const FormCreateCreitCard = () => {
 
     return (
         <>
-            <CreditCardPreview first={number_id?.toString().slice(0, 4)}
-                second={number_id?.toString().slice(4, 8)}
-                third={number_id?.toString().slice(8, 12)}
-                last={number_id?.toString().slice(12, 16)}
+            <CreditCardPreview number_id={number_id ? String(number_id) : ''} 
                 first_last_name={first_last_name}
                 exp_date_month={expiration_date?.slice(0, 2)}
                 exp_date_year={expiration_date?.slice(2, 4)}
             />
             <FormProvider {...methods}>
                 <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-5'>
-                    <Input fieldName='number_id' type='number' validations={{
+                    <Input fieldName='number_id' type='text' validations={{
                         required: true, pattern: {
-                            value: /^[0-9]{16}$/,
-                            message: 'La tarjeta debe tener 16 dígitos numéricos'
+                            value: /^(\d{15}|\d{16})$/,
+                            message: 'La tarjeta debe tener 15 o 16 dígitos numéricos'
                         }
                     }} placeholder='Numero de la tarjeta*' styles='border-solid border-2 border-[#D2FFEC] shadow-md shadow-gray-500/20 py-3' />
                     <Input fieldName='first_last_name' type='text' validations={{
@@ -73,7 +72,7 @@ const FormCreateCreitCard = () => {
                             message: 'Ingresá nombre y apellido válidos'
                         }
                     }} placeholder='Nombre y apellido*' styles='border-solid border-2 border-[#D2FFEC] shadow-md shadow-gray-500/20 py-3' />
-                    <Input fieldName='expiration_date' type='number' validations={{
+                    <Input fieldName='expiration_date' type='text' validations={{
                         required: true, pattern: {
                             value: /^(0[1-9]|1[0-2])([0-9]{2})$/,
                             message: 'Ingresá una fecha válida en formato MMYY'

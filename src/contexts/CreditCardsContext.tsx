@@ -8,6 +8,11 @@ interface CreditCardContextType {
     fetchUserCards: () => void
     addCard: (data: Card) => void
     deleteCard: (id: number, last4: string) => void
+    error: string | null
+    selectedCard: number | null
+    setSelectedCard: (id: number) => void
+    amount: number | null
+    setAmount: (amount: number) => void
 }
 
 const CardContext = createContext<CreditCardContextType | undefined>(undefined)
@@ -19,7 +24,8 @@ const CardProvider = ({ children }: { children: React.ReactNode }) => {
     const [userCards, setUserCards] = useState<CardResponseUser[] | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
-
+    const [selectedCard, setSelectedCard] = useState<number | null>(null)
+    const [amount, setAmount] = useState<number | null>(null)
 
     const fetchUserCards = async () => {
         try {
@@ -50,7 +56,7 @@ const CardProvider = ({ children }: { children: React.ReactNode }) => {
                     throw new Error('Error al eliminar la tarjeta');
                 }
                 const data = await res.json()
-                console.log(data)
+                fetchUserCards()
                 return data
             } catch (error) {
                 console.error(error)
@@ -59,6 +65,7 @@ const CardProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     const addCard = async (data: Card) => {
+        if (userCards?.length === 10) return // can't add more than 10
         try {
             const res = await fetch('/api/cards', {
                 method: 'POST',
@@ -84,7 +91,19 @@ const CardProvider = ({ children }: { children: React.ReactNode }) => {
 
 
     return (
-        <CardContext.Provider value={{ fetchUserCards, addCard, userCards, isLoading, deleteCard }}>{children}</CardContext.Provider>
+        <CardContext.Provider
+            value={{
+                fetchUserCards,
+                addCard,
+                userCards,
+                isLoading,
+                deleteCard,
+                error,
+                selectedCard,
+                setSelectedCard,
+                amount,
+                setAmount
+            }}>{children}</CardContext.Provider>
     )
 }
 
@@ -92,7 +111,7 @@ export default CardProvider
 
 export function useCreditCard() {
     const context = useContext(CardContext)
-    if(context === undefined) {
+    if (context === undefined) {
         throw new Error('useCreditCard debe usarse dentro de CardProvider')
     }
     return context

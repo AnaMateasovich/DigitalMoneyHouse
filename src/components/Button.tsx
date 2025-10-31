@@ -13,9 +13,10 @@ type ButtonProps = {
   iconRight?: ReactNode 
   iconLeft?: ReactNode
   disabled?: boolean
+  styleContainer?: string
 }
 
-const Button = ({ text, variant = 'primary', onClick, className = '', type = "button", iconRight, iconLeft, disabled = false }: ButtonProps) => {
+const Button = ({ text, variant = 'primary', onClick, className = '', type = "button", iconRight, iconLeft, disabled = false, styleContainer }: ButtonProps) => {
 
   const variants = {
     primary: 'bg-[var(--color-primary)] text-[var(--color-secondary)] border-[var(--color-primary)]',
@@ -30,7 +31,7 @@ const Button = ({ text, variant = 'primary', onClick, className = '', type = "bu
   }
 
   return (
-    <div className='flex'>
+    <div className={`flex ${styleContainer}`}>
       
       <button onClick={onClick} className={`${variants[variant]} ${iconLeft || iconRight && "flex justify-between items-center"} border-2 text btn1 py-2 px-2 rounded-md whitespace-nowrap md:px-6 cursor-pointer ${className}`} disabled={disabled}>
         {iconLeft && <span className="flex items-center">{iconLeft}</span>}

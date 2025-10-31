@@ -4,16 +4,20 @@ import React, { createContext, useContext, useState } from 'react'
 interface ToggleMenuContextType {
     toggle: boolean
     openCloseMenu: () => void
+    resetMenu: () => void
 }
 
 const ToggleMenuContext = createContext<ToggleMenuContextType>({
   toggle: false,
-  openCloseMenu: () => {}
+  openCloseMenu: () => {},
+  resetMenu: () => {}
 })
 
 const ToggleMenuProvider = ({ children }: { children: React.ReactNode }) => {
 
     const [toggle, setToggle] = useState<boolean>(false)
+
+    const resetMenu = () => setToggle(false)
 
     const openCloseMenu = () => {
         setToggle((prev) => !prev)
@@ -23,7 +27,8 @@ const ToggleMenuProvider = ({ children }: { children: React.ReactNode }) => {
         <ToggleMenuContext.Provider
         value={{
             toggle,
-            openCloseMenu
+            openCloseMenu,
+            resetMenu
         }}
         >{children}</ToggleMenuContext.Provider>
     )

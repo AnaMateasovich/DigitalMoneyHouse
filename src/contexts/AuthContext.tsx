@@ -3,6 +3,7 @@ import { Account } from "@/app/types/account.types"
 import { User } from "@/app/types/user.type"
 import { useRouter } from "next/navigation"
 import { createContext, useContext, useEffect, useState } from "react"
+import { useToggleMenu } from "./ToggleMenuContext"
 
 interface AuthContextType {
     user: User | null
@@ -12,6 +13,7 @@ interface AuthContextType {
     refreshUser: () => Promise<void>
     fullNameFormatUser: (user?: User | null) => string
     logout: () => void
+  
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -19,7 +21,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const router = useRouter()
-
+    const { resetMenu } = useToggleMenu()
 
     const [user, setUser] = useState<User | null>(null)
     const [account, setAccount] = useState<Account | null>(null)
@@ -47,7 +49,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     const logout = async (): Promise<void> => {
-
         try {
             const res = await fetch('/api/logout', {
                 method: 'POST'
@@ -57,8 +58,9 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             }
             setUser(null)
             setAccount(null)
+            resetMenu()
             router.push('/')
-        
+
         } catch (error) {
             console.error(error)
         }
@@ -90,7 +92,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             isLoading,
             refreshUser: fetchUser,
             fullNameFormatUser,
-            logout
+            logout,
+           
         }}>
             {children}
         </AuthContext.Provider>

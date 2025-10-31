@@ -13,7 +13,7 @@ const LoginForm = () => {
     const [secondStep, setSecondStep] = useState<boolean>(false)
     const [serverError, setServerError] = useState<string | null>(null)
 
-    const {refreshUser} = useAuth()
+    const { refreshUser } = useAuth()
 
     const router = useRouter()
     const methods = useForm<TokenRequest>({
@@ -70,6 +70,7 @@ const LoginForm = () => {
                                 fieldName='email'
                                 type='text'
                                 placeholder='Correo electrónico'
+                                autoComplete='username'
                                 validations={{
                                     required: true,
                                     pattern: {
@@ -88,9 +89,24 @@ const LoginForm = () => {
                     ) : (
                         <>
                             <Input
+                                fieldName='email'
+                                type='text'
+                                placeholder='Correo electrónico'
+                                autoComplete='username'
+                                containerStyles='hidden'
+                                validations={{
+                                    required: true,
+                                    pattern: {
+                                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                        message: "Email inválido"
+                                    }
+                                }}
+                            />
+                            <Input
                                 fieldName='password'
                                 type='password'
                                 placeholder='Contraseña'
+                                autoComplete='current-password'
                                 validations={{
                                     required: true
                                 }}
