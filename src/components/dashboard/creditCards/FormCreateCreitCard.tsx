@@ -96,7 +96,7 @@ const FormCreateCreitCard = () => {
                             message: 'El código de seguridad debe tener 3 o 4 dígitos'
                         }
                     }} styles='border-solid border-2 border-[#D2FFEC] shadow-md shadow-gray-500/20 py-3' />
-                    <Button text="Continuar" type='submit' className={`${isValid ? 'primary' : 'bg-gray-300'} border-gray-300 shadow-md shadow-gray-600/20 w-full my-2`} disabled={!isValid} />
+                    <Button text="Continuar" type='submit' className={`${isValid ? 'primary' : 'bg-gray-300'} border-gray-300 shadow-md shadow-gray-600/20 w-full my-2 py-2`} disabled={!isValid} />
                 </form>
                 {error && <p className='text-red-600 text-center'>{error}</p>}
             </FormProvider>

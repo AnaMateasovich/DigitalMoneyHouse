@@ -7,7 +7,7 @@ const page = () => {
   return (
     <>
 
-      <CurrentLocation containerClass='mb-4' text='Tarjetas' />
+      <CurrentLocation containerClass='mb-4 md:hidden' text='Tarjetas' />
       <AddCards className='mb-5' />
       <UserCards mode='manage'/>
     </>

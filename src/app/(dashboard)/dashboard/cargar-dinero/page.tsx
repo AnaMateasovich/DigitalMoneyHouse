@@ -5,7 +5,7 @@ import React from 'react'
 const page = () => {
   return (
     <>
-      <CurrentLocation containerClass='mb-4' text='Cargar dinero' />
+      <CurrentLocation containerClass='mb-4 md:hidden' text='Cargar dinero' />
         <SelectMothodToAdd /> 
     </>
   )

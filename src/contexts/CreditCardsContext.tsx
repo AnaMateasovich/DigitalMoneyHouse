@@ -1,5 +1,6 @@
 import { Card } from "@/app/types/card.types";
 import { CardResponseUser } from "@/app/types/cardResponseUser.type";
+import { Transaction } from "@/app/types/transaction.types";
 import { createContext, useContext, useState } from "react";
 
 interface CreditCardContextType {
@@ -11,13 +12,10 @@ interface CreditCardContextType {
     error: string | null
     selectedCard: number | null
     setSelectedCard: (id: number) => void
-    amount: number | null
-    setAmount: (amount: number) => void
+    isValidCard: (last4: number) => Promise<boolean>
 }
 
 const CardContext = createContext<CreditCardContextType | undefined>(undefined)
-
-import React from 'react'
 
 const CardProvider = ({ children }: { children: React.ReactNode }) => {
 
@@ -25,7 +23,6 @@ const CardProvider = ({ children }: { children: React.ReactNode }) => {
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
     const [selectedCard, setSelectedCard] = useState<number | null>(null)
-    const [amount, setAmount] = useState<number | null>(null)
 
     const fetchUserCards = async () => {
         try {
@@ -89,6 +86,33 @@ const CardProvider = ({ children }: { children: React.ReactNode }) => {
         }
     }
 
+    const isValidCard = async (cardId: number): Promise<boolean> => {
+        try {
+            const res = await fetch('/api/cards', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+
+            if (!res.ok) {
+                const resError = await res.json()
+                throw new Error(resError.error || "Error al obtener las tarjetas")
+            }
+            const cards: Card[] = await res.json()
+
+            return cards.some(card => {
+                String(card.id) === String(cardId)
+            })
+
+        } catch (e) {
+            setError('Ocurrio un error al obtener la tarjeta')
+            console.error(e)
+            return false
+        }
+    }
+
+
 
     return (
         <CardContext.Provider
@@ -101,8 +125,7 @@ const CardProvider = ({ children }: { children: React.ReactNode }) => {
                 error,
                 selectedCard,
                 setSelectedCard,
-                amount,
-                setAmount
+                isValidCard
             }}>{children}</CardContext.Provider>
     )
 }

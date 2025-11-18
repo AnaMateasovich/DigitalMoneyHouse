@@ -1,0 +1,7 @@
+.selectStyle select {
+    font-weight: bold;
+}
+
+.selectStyle option {
+    font-size: .8rem;
+}

@@ -1,16 +1,18 @@
 'use client'
 import { useAuth } from '@/contexts/AuthContext'
 import { useToggleMenu } from '@/contexts/ToggleMenuContext'
+import useBreakpoint from '@/hooks/useBreakpoint'
 import Link from 'next/link'
-import { usePathname} from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import React from 'react'
 
 const SidebarLinks = () => {
 
     const pathname = usePathname()
-    const {logout} = useAuth()
+    const { logout } = useAuth()
 
     const { toggle, openCloseMenu } = useToggleMenu()
+
 
     const links = [
         { name: "Inicio", path: "/dashboard" },
@@ -22,10 +24,9 @@ const SidebarLinks = () => {
         { name: "Cerrar sesión", path: "/dashboard/logout" },
     ]
 
-    
 
     return (
-        <nav className='flex flex-col gap-4 ml-6 mt-4 text-xl'>
+        <nav className='flex flex-col gap-4 ml-6 mt-4 text-xl md:mt-10 md:ml-8 md:pr-4'>
             {links.map(link => (
                 link.path === '/dashboard/logout' ? (
                     <button

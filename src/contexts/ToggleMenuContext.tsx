@@ -5,12 +5,14 @@ interface ToggleMenuContextType {
     toggle: boolean
     openCloseMenu: () => void
     resetMenu: () => void
+    setToggle: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const ToggleMenuContext = createContext<ToggleMenuContextType>({
   toggle: false,
   openCloseMenu: () => {},
-  resetMenu: () => {}
+  resetMenu: () => {},
+  setToggle: () => {}
 })
 
 const ToggleMenuProvider = ({ children }: { children: React.ReactNode }) => {
@@ -28,7 +30,8 @@ const ToggleMenuProvider = ({ children }: { children: React.ReactNode }) => {
         value={{
             toggle,
             openCloseMenu,
-            resetMenu
+            resetMenu,
+            setToggle
         }}
         >{children}</ToggleMenuContext.Provider>
     )

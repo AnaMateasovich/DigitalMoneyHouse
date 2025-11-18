@@ -1,17 +1,28 @@
 'use client'
 import Sidebar from '@/components/dashboard/sidebar/Sidebar'
+import RouteGuard from '@/components/RouteGuard'
+import ActivityProvider from '@/contexts/ActivityContext'
 import CardProvider from '@/contexts/CreditCardsContext'
+import TransferenceProvider from '@/contexts/TransferenceContext'
 import React from 'react'
 
 const layout = ({ children }: { children: React.ReactNode }) => {
     return (
-        <div>
+        <div className='flex min-h-screen'>
             <Sidebar />
-            <CardProvider>
-                <main className='bg-gray-200 h-full p-4 text-[#201F22]'>
-                    {children}
-                </main>
-            </CardProvider>
+            <div className='flex-1'>
+                <CardProvider>
+                    <TransferenceProvider>
+                        <ActivityProvider>
+                            <RouteGuard>
+                                <main className='md:p-10 bg-gray-200 h-full p-4 text-[#201F22]'>
+                                    {children}
+                                </main>
+                            </RouteGuard>
+                        </ActivityProvider>
+                    </TransferenceProvider>
+                </CardProvider>
+            </div>
         </div>
     )
 }

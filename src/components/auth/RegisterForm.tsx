@@ -140,7 +140,7 @@ const RegisterForm = () => {
                                 }}
                             />
                             <div className=' w-full mt-4 md:flex md:flex-col md:h-full md:relative'>
-                                <Button type='submit' text='Crear cuenta' variant='primary' className='w-full md:py-3 ' />
+                                <Button type='submit' text='Crear cuenta' variant='primary' className='w-full md:py-3 p-2' />
                                 {hasErrors && <div className='bg-red-600 text-white w-full text-center mt-3 md:absolute md:-bottom-7 md:left-0 md:right-0'>Completa los campos requeridos</div>}
                             </div>
                         </form>
@@ -152,7 +152,7 @@ const RegisterForm = () => {
                     <Image src="/check.png" width={120} height={130} alt="Check de registro exitoso" className='my-2 md:w-[100px]'/>
                     <p className='text-white text-center text-base max-w-4/6 mt-2 md:max-w-3/5 lg:max-w-2/5'>Hemos enviado un correo de confirmación para validar tu email, por favor revisalo para iniciar sesión.</p>
                     <div className='w-3/4 mt-4 md:w-2/5 lg:w-1/5'>
-                        <Button text='Continuar' variant='primary' className='w-full md:py-3 ' onClick={() => router.push("/")} />
+                        <Button text='Continuar' variant='primary' className='w-full md:py-3 p-2' onClick={() => router.push("/")} />
                     </div>
                 </>
             )}

@@ -80,10 +80,10 @@ const LoginForm = () => {
                                 }}
                             />
                             <div className={`w-full ${errors.email ? 'mt-3' : ''}`}>
-                                <Button text='Continuar' variant='primary' className='w-full' onClick={goToNextStep} />
+                                <Button text='Continuar' variant='primary' className='w-full p-2' onClick={goToNextStep} />
                             </div>
                             <div className='w-full '>
-                                <Button text='Crear cuenta' variant='light' className='w-full' onClick={() => router.push('/register')} />
+                                <Button text='Crear cuenta' variant='light' className='w-full p-2' onClick={() => router.push('/register')} />
                             </div>
                         </>
                     ) : (
@@ -112,7 +112,7 @@ const LoginForm = () => {
                                 }}
                             />
                             <div className='w-full'>
-                                <Button type='submit' text='Ingresar' variant='primary' className='w-full' />
+                                <Button type='submit' text='Ingresar' variant='primary' className='w-full p-2' />
                             </div>
                         </>
                     )}

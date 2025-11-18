@@ -33,7 +33,7 @@ const Button = ({ text, variant = 'primary', onClick, className = '', type = "bu
   return (
     <div className={`flex ${styleContainer}`}>
       
-      <button onClick={onClick} className={`${variants[variant]} ${iconLeft || iconRight && "flex justify-between items-center"} border-2 text btn1 py-2 px-2 rounded-md whitespace-nowrap md:px-6 cursor-pointer ${className}`} disabled={disabled}>
+      <button onClick={onClick} className={`${variants[variant]} ${iconLeft || iconRight && "flex justify-between items-center"} border-2 btn1 px-2 rounded-md whitespace-nowrap md:px-6 cursor-pointer ${className}`} disabled={disabled}>
         {iconLeft && <span className="flex items-center">{iconLeft}</span>}
         <span>{text}</span>
         {iconRight && <span className="flex items-center">{iconRight}</span>}

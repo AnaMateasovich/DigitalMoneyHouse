@@ -74,14 +74,14 @@ const Header = () => {
                         {pathname !== "/login" && pathname !== "/register" && !user && (
                             <>
                                 <Button text="Ingresar"
-                                    variant={!darkHeader ? 'outline-secondary' : 'outline-primary'} onClick={() => router.push('/login')} />
+                                    variant={!darkHeader ? 'outline-secondary' : 'outline-primary'} onClick={() => router.push('/login')} className='p-2'/>
                                 <Button text="Crear cuenta"
-                                    variant={!darkHeader ? 'secondary' : 'primary'} onClick={() => router.push('/register')} />
+                                    variant={!darkHeader ? 'secondary' : 'primary'} onClick={() => router.push('/register')} className='p-2'/>
                             </>
                         )}
                         {pathname === '/register' && (
                             <Button text="Iniciar sesión"
-                                variant='secondary' onClick={() => router.push('/login')} />
+                                variant='secondary' onClick={() => router.push('/login')} className='p-2'/>
 
                         )}
                     </div>

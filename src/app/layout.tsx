@@ -32,11 +32,11 @@ export default function RootLayout({
     <html lang="en">
 
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased `}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}
       >
         <AuthProvider>
           <ToggleMenuProvider>
-
+            
             <div className="grid grid-rows-[auto_1fr_auto] min-h-dvh">
               <Suspense fallback={<div className="h-20 bg-transparent" />}>
                 <Header />
