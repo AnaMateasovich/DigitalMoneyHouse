@@ -46,4 +46,25 @@ const companies = [
     }
 ]
 
+export const serviceBill = [
+  {
+    id: 1,
+    accountNumber: "37289701912",
+    name: "EPE",
+    amount: 15400
+  },
+  {
+    id: 2,
+    accountNumber: "39871234999",
+    name: "Litoral Gas",
+    amount: 22000
+  },
+  {
+    id: 3,
+    accountNumber: "55220011990",
+    name: "Telecom",
+    amount: 12900
+  }
+]
+
 export default companies

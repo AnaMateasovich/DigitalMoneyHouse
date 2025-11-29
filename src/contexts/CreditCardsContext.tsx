@@ -11,7 +11,7 @@ interface CreditCardContextType {
     deleteCard: (id: number, last4: string) => void
     error: string | null
     selectedCard: number | null
-    setSelectedCard: (id: number) => void
+    setSelectedCard: React.Dispatch<React.SetStateAction<number | null>>
     isValidCard: (last4: number) => Promise<boolean>
 }
 

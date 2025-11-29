@@ -3,6 +3,7 @@ import Sidebar from '@/components/dashboard/sidebar/Sidebar'
 import RouteGuard from '@/components/RouteGuard'
 import ActivityProvider from '@/contexts/ActivityContext'
 import CardProvider from '@/contexts/CreditCardsContext'
+import PayServiceProvider from '@/contexts/PayServiceContext'
 import TransferenceProvider from '@/contexts/TransferenceContext'
 import React from 'react'
 
@@ -14,11 +15,13 @@ const layout = ({ children }: { children: React.ReactNode }) => {
                 <CardProvider>
                     <TransferenceProvider>
                         <ActivityProvider>
-                            <RouteGuard>
-                                <main className='md:p-10 bg-gray-200 h-full p-4 text-[#201F22]'>
-                                    {children}
-                                </main>
-                            </RouteGuard>
+                            <PayServiceProvider>
+                                <RouteGuard>
+                                    <main className='md:p-10 bg-gray-200 h-full p-4 text-[#201F22]'>
+                                        {children}
+                                    </main>
+                                </RouteGuard>
+                            </PayServiceProvider>
                         </ActivityProvider>
                     </TransferenceProvider>
                 </CardProvider>

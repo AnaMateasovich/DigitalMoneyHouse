@@ -1,5 +1,6 @@
 export type Service = {
     id: number
     name: string
-    date: string
+    accountNumber: string
+    amount: number
 }
