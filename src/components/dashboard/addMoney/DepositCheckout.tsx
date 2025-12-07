@@ -5,7 +5,7 @@ import { useTransference } from '@/contexts/TransferenceContext'
 import { CircleCheck } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { useEffect } from 'react'
-import ReviewRecipt from './ReviewRecipt'
+import ReviewRecipt from '../../ReviewRecipt'
 
 
 const DepositCheckout = () => {
@@ -51,17 +51,7 @@ const DepositCheckout = () => {
           )}
 
           <ReviewRecipt />
-          {!reviewPath && (
-            <div className='flex flex-col gap-4 mt-5'>
-              <Button text='Descargar comprobante' className='w-full py-3 shadow-md' />
-              <LinkComponent
-                text='Ir al inicio'
-                href='/dashboard'
-                bgColor='bg-gray-400/50'
-                styles='py-3 shadow-md'
-              />
-            </div>
-          )}
+      
         </>
       )}
     </section>

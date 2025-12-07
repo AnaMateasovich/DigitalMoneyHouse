@@ -3,30 +3,23 @@ import { useAuth } from '@/contexts/AuthContext'
 import { useCreditCard } from '@/contexts/CreditCardsContext'
 import { useTransference } from '@/contexts/TransferenceContext'
 import { usePathname, useRouter } from 'next/navigation'
-import DepositSummary from '../DepositSummary'
-import AddMoneyCardContainer from './AddMoneyCardContainer'
+import DepositSummary from './dashboard/DepositSummary'
+import CardContainer from './dashboard/CardContainer'
 import Button from '@/components/Button'
 import LinkComponent from '@/components/LinkComponent'
+import DownloadReciptButtons from './dashboard/DownloadReciptButtons'
 
 const ReviewRecipt = () => {
 
-    const { selectedCard, } = useCreditCard()
     const { account } = useAuth()
-    const { amount, makeDeposit, checkout, clearCheckout, recipt } = useTransference()
+    const { amount, checkout, recipt } = useTransference()
 
-    const router = useRouter()
     const path = usePathname()
 
     const isCheckout = path === '/dashboard/cargar-dinero/check-out'
+    const addMoneyPath = '/dashboard/cargar-dinero/tarjetas/monto/revisar'
     const isRecipt = path.startsWith('/dashboard/comprobante/')
 
-    const handleMakeDeposit = () => {
-        if (Number(amount) > 0 && selectedCard) {
-            makeDeposit()
-        }
-        router.push('/dashboard/cargar-dinero/check-out')
-        console.log('se hizo el deposito')
-    }
 
     const getType = (type: string): string => {
         switch (type) {
@@ -69,7 +62,7 @@ const ReviewRecipt = () => {
 
     return (
         <>
-            <AddMoneyCardContainer href='' submit={!isCheckout && !isRecipt ? handleMakeDeposit : undefined}>
+            <CardContainer >
                 <DepositSummary
                     title={data.title}
                     amount={data.amount}
@@ -78,11 +71,11 @@ const ReviewRecipt = () => {
                     date={data.date}
                     transactionType={data.transactionType}
                 />
-            </AddMoneyCardContainer>
-            <div className='w-full flex flex-col gap-4 mt-4'>
-                <Button text='Descargar comprobante' className='w-full py-3 shadow-md'/>
-                <LinkComponent text='Ir al inicio' href='/dashboard' styles='py-3 bg-gray-400 shadow-md'/>
-            </div>
+            </CardContainer>
+            {path !== addMoneyPath && (
+                <DownloadReciptButtons isLoading={false} />
+            )}
+
         </>
 
     )

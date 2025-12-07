@@ -101,3 +101,7 @@ body {
   font-size: 14pt;
   color: var(--color-error);
 }
+.btn-size {
+  padding: 8px 32px; /* py-2 px-8 */
+  display: inline-block;
+}

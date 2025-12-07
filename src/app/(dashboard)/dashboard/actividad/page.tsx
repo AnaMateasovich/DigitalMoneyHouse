@@ -1,8 +1,9 @@
-import React from 'react'
-
+import ActivityCard from '@/components/dashboard/activity/ActivityCard'
 const page = () => {
   return (
-    <div>page</div>
+    <section className=''>
+      <ActivityCard />
+    </section>
   )
 }
 

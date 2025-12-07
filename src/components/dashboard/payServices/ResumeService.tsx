@@ -3,13 +3,15 @@ import { usePayService } from '@/contexts/PayServiceContext'
 import React from 'react'
 import UserCards from '../creditCards/UserCards'
 import Button from '@/components/Button'
+import { useRouter } from 'next/navigation'
 
 const ResumeService = () => {
 
+    const router = useRouter()
     const { service, selectedCard } = usePayService()
 
     const handlePayService = () => {
-        console.log("pagaste")
+        router.push("/dashboard/pagar-servicios/3/resumen/checkout")
     }
 
 

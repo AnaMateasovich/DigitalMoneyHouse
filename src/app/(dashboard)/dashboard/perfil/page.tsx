@@ -1,9 +1,10 @@
 import Button from '@/components/Button'
 import CurrentLocation from '@/components/CurrentLocation'
 import React from 'react'
-import { ArrowRight, Link } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import UserPersonalDataCard from '@/components/dashboard/profile/UserPersonalDataCard'
 import UserAccountDataCard from '@/components/dashboard/profile/UserAccountDataCard'
+import Link from 'next/link'
 
 const page = () => {
   return (
