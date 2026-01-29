@@ -63,7 +63,13 @@ export const serviceBill = [
     id: 3,
     accountNumber: "55220011990",
     name: "Telecom",
-    amount: 12900
+    amount: 2000
+  },
+   {
+    id: 4,
+    accountNumber: "5121021930",
+    name: "Claro",
+    amount: 150
   }
 ]
 

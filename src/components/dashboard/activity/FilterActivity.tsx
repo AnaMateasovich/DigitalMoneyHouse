@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styles from './activity.module.css'
 import Button from '@/components/Button'
 import { X } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 type FilterActivityProps = {
     closeFilter: () => void
@@ -25,15 +26,18 @@ const FilterActivity = ({ closeFilter, toggle }: FilterActivityProps) => {
         type: null
     })
 
-    const handleSubmit = async () => {
-        try {
-            const res = await fetch(`/api/transactions/filter?range=${filter.range}&type=${filter.type}&page=1&limit=10`)
-            const data = await res.json()
-            console.log(data)
-        } catch (error) {
-            console.error('error componente', error)
-        }
+    const router = useRouter()
+
+    const handleSubmit = () => {
+        const params = new URLSearchParams()
+
+        if (filter.range) params.set('range', filter.range)
+        if (filter.type) params.set('type', filter.type)
+
+        router.push(`/dashboard/actividad?${params.toString()}`)
+        handleClose()
     }
+
 
     const handleClose = () => {
         setShow(false)
@@ -78,10 +82,10 @@ const FilterActivity = ({ closeFilter, toggle }: FilterActivityProps) => {
                         ([key, label]) => (
                             <div key={key} className='flex justify-between items-center px-2 mt-3 '>
                                 <label htmlFor="" className={`${filter.range === null
-                                        ? 'text-[var(--color-dark)]'
-                                        : filter.range === key
-                                            ? 'font-semibold'
-                                            : 'text-gray-400'
+                                    ? 'text-[var(--color-dark)]'
+                                    : filter.range === key
+                                        ? 'font-semibold'
+                                        : 'text-gray-400'
                                     }`}>{label}</label>
                                 <input type="radio" name="range" value={key} checked={filter.range === key} className="accent-[var(--color-secondary)] scale-125" onChange={() => setFilter(prev => ({ ...prev, range: key }))} />
                             </div>
@@ -97,10 +101,10 @@ const FilterActivity = ({ closeFilter, toggle }: FilterActivityProps) => {
                         ([key, label]) => (
                             <div key={key} className='flex justify-between items-center px-2 mt-3 '>
                                 <label htmlFor="" className={`${filter.type === null
-                                        ? 'text-[var(--color-dark)]'
-                                        : filter.type === key
-                                            ? 'font-semibold'
-                                            : 'text-gray-400'
+                                    ? 'text-[var(--color-dark)]'
+                                    : filter.type === key
+                                        ? 'font-semibold'
+                                        : 'text-gray-400'
                                     }`}>{label}</label>
                                 <input type="radio" name="type" value={key} checked={filter.type === key} className="accent-[var(--color-secondary)] scale-125" onChange={() => setFilter(prev => ({ ...prev, type: key }))} />
                             </div>

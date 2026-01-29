@@ -1,5 +1,6 @@
 import { Transaction } from "@/app/types/transaction.types";
-import { createContext, useContext, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { createContext, useContext, useEffect, useState } from "react";
 
 interface ActivityContextType {
     activity: Transaction[] | null,
@@ -7,19 +8,34 @@ interface ActivityContextType {
     isLoading: boolean
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
     fetchActivity: () => Promise<void>
+    searchResults: Transaction[]
+    setSearchResults: React.Dispatch<React.SetStateAction<Transaction[]>>
 }
 
 const ActivityContext = createContext<ActivityContextType | undefined>(undefined)
 
 const ActivityProvider = ({ children }: { children: React.ReactNode }) => {
 
+    const searchParams = useSearchParams()
+
     const [activity, setActivity] = useState<Transaction[] | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [searchResults, setSearchResults] = useState<Transaction[]>([])
 
     const fetchActivity = async () => {
         try {
             setIsLoading(true)
-            const res = await fetch('/api/transactions')
+
+            const hasFilters =
+                searchParams.has('range') ||
+                searchParams.has('type')
+
+            const url = hasFilters
+                ? `/api/transactions/filter?${searchParams.toString()}`
+                : '/api/transactions'
+
+
+            const res = await fetch(url)
 
             if (!res.ok) {
                 setActivity(null)
@@ -27,7 +43,7 @@ const ActivityProvider = ({ children }: { children: React.ReactNode }) => {
             }
 
             const data = await res.json()
-            setActivity(data)
+            setActivity(data.data ?? data)
 
         } catch (error) {
             setActivity(null)
@@ -36,8 +52,12 @@ const ActivityProvider = ({ children }: { children: React.ReactNode }) => {
         }
     }
 
+    useEffect(() => {
+        fetchActivity()
+    }, [searchParams.toString()])
+
     return (
-        <ActivityContext.Provider value={{ activity, isLoading, setIsLoading, setActivity, fetchActivity }}>{children}</ActivityContext.Provider>
+        <ActivityContext.Provider value={{ activity, isLoading, setIsLoading, setActivity, fetchActivity, searchResults,setSearchResults }}>{children}</ActivityContext.Provider>
     )
 }
 

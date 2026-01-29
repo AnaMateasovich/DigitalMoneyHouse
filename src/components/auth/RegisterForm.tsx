@@ -11,6 +11,7 @@ const RegisterForm = () => {
 
     const [registerComplete, setRegisterComplete] = useState<boolean>(false)
 
+    
     const router = useRouter()
     const methods = useForm<User>({
         mode: "onSubmit"
@@ -45,6 +46,7 @@ const RegisterForm = () => {
         }
     }
 
+
     const password = watch("password")
 
     const hasErrors = Object.keys(errors).length > 0
@@ -58,7 +60,7 @@ const RegisterForm = () => {
 
                         <form onSubmit={handleSubmit(onSubmit)} className={`w-3/4 flex flex-col gap-6 items-center md:w-1/4 md:grid md:grid-cols-2 md:w-4/5 md:gap-x-12 md:gap-y-7 lg:w-3/5 lg:text-base `}>
                             <Input
-                                fieldName='name'
+                                fieldName='firstname'
                                 type='text'
                                 placeholder='Nombre *'
                                 validations={{

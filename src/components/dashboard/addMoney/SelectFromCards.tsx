@@ -7,6 +7,7 @@ import { useCreditCard } from '@/contexts/CreditCardsContext'
 import LinkComponent from '@/components/LinkComponent'
 import CardContainer from '../CardContainer'
 import Button from '@/components/Button'
+import { useRouter } from 'next/navigation'
 
 const SelectFromCards = () => {
 
@@ -17,8 +18,8 @@ const SelectFromCards = () => {
       <CardContainer >
         <h3 className=' h3 my-2 ml-1'>Seleccionar tarjeta</h3>
         <UserCards mode='select' />
-        <Link href="/">
-          <div className='flex items-center pt-5 gap-2'>
+        <Link href='/dashboard/tarjetas/crear'>
+          <div className='flex items-center pt-5 gap-2' >
             <CirclePlus size={30} strokeWidth={1} />
             <p className='font-semibold'>Nueva tarjeta</p>
           </div>

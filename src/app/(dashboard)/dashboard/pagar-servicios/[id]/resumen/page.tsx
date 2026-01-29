@@ -8,7 +8,6 @@ const page = () => {
     <>
       <CurrentLocation containerClass='mb-4 md:hidden' text='Pagar servicios' to='/dashboard' />
       <ResumeService />
-     
     </>
   )
 }

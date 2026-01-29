@@ -25,8 +25,8 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
 
 export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
     try {
-        const {id} = await params
-        const card = await CardsService.deleteById(params.id)
+        const {id} = params
+        const card = await CardsService.deleteById(id)
 
         return NextResponse.json("Deleted successfully")
     } catch (error) {
