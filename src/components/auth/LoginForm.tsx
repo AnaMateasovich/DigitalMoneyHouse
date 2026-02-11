@@ -61,7 +61,12 @@ const LoginForm = () => {
 
     return (
         <div className='w-3/4 flex flex-col items-center gap-4 md:w-2/4 lg:w-1/4'>
-            <h3 className='h3 text-white'>¡Hola! Ingresa tu email</h3>
+            {!secondStep ? (
+                <h3 className='h3 text-white'>¡Hola! Ingresa tu email</h3>
+            ) : (
+                <h3 className='h3 text-white'>Ingresa tu contraseña</h3>
+
+            )}
             <FormProvider {...methods}>
                 <form onSubmit={handleSubmit(onSubmit)} className='w-full flex flex-col gap-4 items-center lg:text-base' >
                     {!secondStep ? (
@@ -80,7 +85,7 @@ const LoginForm = () => {
                                 }}
                             />
                             <div className={`w-full ${errors.email ? 'mt-3' : ''}`}>
-                                <Button text='Continuar' variant='primary' className='w-full p-2' onClick={goToNextStep} />
+                                <Button id='continueButton' text='Continuar' variant='primary' className='w-full p-2' onClick={goToNextStep} />
                             </div>
                             <div className='w-full '>
                                 <Button text='Crear cuenta' variant='light' className='w-full p-2' onClick={() => router.push('/register')} />
@@ -90,6 +95,7 @@ const LoginForm = () => {
                         <>
                             <Input
                                 fieldName='email'
+                                id='email'
                                 type='text'
                                 placeholder='Correo electrónico'
                                 autoComplete='username'
@@ -104,6 +110,7 @@ const LoginForm = () => {
                             />
                             <Input
                                 fieldName='password'
+                                id='password'
                                 type='password'
                                 placeholder='Contraseña'
                                 autoComplete='current-password'
@@ -112,7 +119,7 @@ const LoginForm = () => {
                                 }}
                             />
                             <div className='w-full'>
-                                <Button type='submit' text='Ingresar' variant='primary' className='w-full p-2' />
+                                <Button id='loginButton' type='submit' text='Ingresar' variant='primary' className='w-full p-2' />
                             </div>
                         </>
                     )}

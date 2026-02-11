@@ -101,9 +101,10 @@ const CardProvider = ({ children }: { children: React.ReactNode }) => {
             }
             const cards: Card[] = await res.json()
 
-            return cards.some(card => {
+            return cards.some(card =>
                 String(card.id) === String(cardId)
-            })
+            )
+
 
         } catch (e) {
             setError('Ocurrio un error al obtener la tarjeta')

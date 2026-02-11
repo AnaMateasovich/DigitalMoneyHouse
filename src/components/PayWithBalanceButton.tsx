@@ -1,5 +1,7 @@
 'use client'
 import { useAuth } from '@/contexts/AuthContext'
+import { useCreditCard } from '@/contexts/CreditCardsContext'
+import { usePayService } from '@/contexts/PayServiceContext'
 import React from 'react'
 
 type PayWithBalanceButtonProps = {
@@ -9,6 +11,8 @@ type PayWithBalanceButtonProps = {
 const PayWithBalanceButton = ({ error }: PayWithBalanceButtonProps) => {
 
     const { account } = useAuth()
+    const { paymentMethod, setPaymentMethod } = usePayService()
+    const { setSelectedCard } = useCreditCard()
 
     return (
         <div>
@@ -17,7 +21,11 @@ const PayWithBalanceButton = ({ error }: PayWithBalanceButtonProps) => {
                 <h4 className='font-semibold text-lg'>Dinero disponible</h4>
                 <div className='flex gap-2 items-center'>
                     <p className='text-xl font-semibold'>${account?.available_amount}</p>
-                    <input type='radio' />
+                    <input type='radio' checked={paymentMethod === 'BALANCE'}
+                    onChange={() => {setPaymentMethod('BALANCE')
+                         setSelectedCard(null)
+                    }}
+                    />
                 </div>
             </div>
             {error && (

@@ -3,9 +3,10 @@ import { useActivity } from '@/contexts/ActivityContext'
 import { ArrowRight, SlidersHorizontal } from 'lucide-react'
 import { useState } from 'react'
 import FilterActivity from './FilterActivity'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useTransference } from '@/contexts/TransferenceContext'
 import { Transaction } from '@/app/types/transaction.types'
+import Link from 'next/link'
 
 type ActivityCardProps = {
     className?: string
@@ -16,8 +17,19 @@ const ActivityCard = ({ className }: ActivityCardProps) => {
     const { setRecipt } = useTransference()
     const [toggleFilter, setToggleFilter] = useState<boolean>(false)
 
-    const router = useRouter()
+    console.log(activity)
 
+    const router = useRouter()
+    const path = usePathname()
+
+    const safeActivity = activity ?? []
+    const orderedActivity = [...safeActivity].reverse()
+
+    const isActivityPage = path === '/dashboard/actividad'
+
+    const transactionsToShow = isActivityPage
+        ? orderedActivity
+        : orderedActivity.slice(0, 10)
     const handleSetRecipt = (transaction: Transaction) => {
         setRecipt(transaction)
         router.push(`/dashboard/comprobante/${transaction.id}`)
@@ -101,13 +113,13 @@ const ActivityCard = ({ className }: ActivityCardProps) => {
                     ) : (
                         /* ---------- CONTENIDO ---------- */
                         <>
-                            {!activity || activity.length === 0 ? (
+                            {transactionsToShow.length === 0 ? (
                                 <p className="text-center text-gray-400 py-6">
                                     No hay actividad para mostrar
                                 </p>
                             ) : (
                                 <>
-                                    {activity.slice(-10).reverse().map(transaction => (
+                                    {transactionsToShow.map(transaction => (
                                         <div
                                             key={transaction.id}
                                             onClick={() => handleSetRecipt(transaction)}
@@ -129,12 +141,16 @@ const ActivityCard = ({ className }: ActivityCardProps) => {
                                         </div>
                                     ))}
 
-                                    <div className='flex justify-between'>
-                                        <button className='font-semibold'>
-                                            Ver toda tu actividad
-                                        </button>
-                                        <ArrowRight className='text-gray-600' />
-                                    </div>
+                                    {!isActivityPage && (
+                                        <div className='flex justify-between'>
+                                            <Link href="/dashboard/actividad">
+                                                <button className='font-semibold'>
+                                                    Ver toda tu actividad
+                                                </button>
+                                            </Link>
+                                            <ArrowRight className='text-gray-600' />
+                                        </div>
+                                    )}
                                 </>
                             )}
                         </>

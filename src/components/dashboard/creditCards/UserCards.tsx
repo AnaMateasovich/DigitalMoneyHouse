@@ -4,9 +4,10 @@ import React, { useEffect } from 'react'
 
 type UserCardsProps = {
     mode: 'select' | 'manage'
+    onSelectCard?: (cardId: number) => void
 }
 
-const UserCards = ({ mode }: UserCardsProps) => {
+const UserCards = ({ mode, onSelectCard }: UserCardsProps) => {
 
     const { userCards, isLoading, fetchUserCards, deleteCard, selectedCard, setSelectedCard } = useCreditCard()
 
@@ -49,7 +50,13 @@ const UserCards = ({ mode }: UserCardsProps) => {
                                         name='creditCardSelect'
                                         value={card.id}
                                         checked={selectedCard === card.id}
-                                        onChange={() => setSelectedCard(card.id)}
+                                        onChange={() => {
+                                            setSelectedCard(card.id)
+
+                                            if (onSelectCard) {
+                                                onSelectCard(card.id)
+                                            }
+                                        }}
                                     />
                                 ) : (
                                     <button className='font-bold text-sm' onClick={() => deleteCard(card.id, card.last4)}>Eliminar</button>

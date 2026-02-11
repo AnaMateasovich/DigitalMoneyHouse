@@ -3,6 +3,7 @@ import { useFormContext } from 'react-hook-form';
 
 type InputProps = {
   label?: string
+  id?: string
   fieldName: string
   placeholder?: string;
   containerStyles?:string
@@ -29,7 +30,7 @@ type InputProps = {
     icon?: React.ReactNode
 }
 
-const Input = ({ fieldName, type, placeholder, containerStyles, styles, errorText, validations = {}, autoComplete, icon }: InputProps) => {
+const Input = ({ fieldName, id, type, placeholder, containerStyles, styles, errorText, validations = {}, autoComplete, icon }: InputProps) => {
 
   const { register, formState: { errors }, watch } = useFormContext()
 
@@ -46,6 +47,7 @@ const Input = ({ fieldName, type, placeholder, containerStyles, styles, errorTex
       )}
       
       <input
+      id={id ?? fieldName}
         {...register(fieldName, validations)}
         type={type}
         placeholder={placeholder}

@@ -2,23 +2,29 @@
 import Button from '@/components/Button'
 import { usePayService } from '@/contexts/PayServiceContext'
 import { serviceBill } from '@/db'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import ErrorBill from './ErrorBill'
 
 export const AccountNumberBox = () => {
 
   const router = useRouter()
+  const params = useParams()
+  const serviceId = params.id
 
   const { accountNumber, setAccountNumber, setService } = usePayService()
   const [error, setError] = useState<boolean>(false)
   const [shouldClear, setShouldClear] = useState<boolean>(true)
 
   const isValid = () => {
-    const bill = serviceBill.find(b => b.accountNumber === accountNumber)
+    const bill = serviceBill.find(
+      b =>
+        b.accountNumber === accountNumber &&
+        b.id.toString() === serviceId
+    )
     if (bill) {
       setService(bill)
-      router.push('/dashboard/pagar-servicios/3/resumen')
+      router.push(`/dashboard/pagar-servicios/${bill.id}/resumen`)
       setShouldClear(false)
     } else {
       setError(true)
@@ -27,12 +33,12 @@ export const AccountNumberBox = () => {
 
   useEffect(() => {
     return () => {
-      if(shouldClear) {
+      if (shouldClear) {
         setAccountNumber("")
       }
     }
   }, [shouldClear])
-  
+
 
   return (
     <section >

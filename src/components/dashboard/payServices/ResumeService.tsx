@@ -5,12 +5,13 @@ import UserCards from '../creditCards/UserCards'
 import Button from '@/components/Button'
 import { useRouter } from 'next/navigation'
 import PayWithBalanceButton from '@/components/PayWithBalanceButton'
+import { useCreditCard } from '@/contexts/CreditCardsContext'
 
 const ResumeService = () => {
 
     const router = useRouter()
-    const { service, selectedCard, payService, error } = usePayService()
-
+    const { service, selectedCard, payService, error, setPaymentMethod } = usePayService()
+    const { setSelectedCard } = useCreditCard()
 
     const handlePayService = async () => {
         try {
@@ -42,8 +43,12 @@ const ResumeService = () => {
             </div>
             <div className='my-6 flex flex-col gap-3'>
                 <h3 className='h4'>Elije el medio de pago</h3>
-                <PayWithBalanceButton error={error}/>
-                <UserCards mode='select' />
+                <PayWithBalanceButton error={error} />
+                <UserCards mode="select"
+                    onSelectCard={(cardId) => {
+                        setSelectedCard(cardId)
+                        setPaymentMethod('CARD')
+                    }} />
             </div>
             <div className='flex justify-end'>
                 <Button text='Pagar' className='py-2 px-16' onClick={handlePayService} />

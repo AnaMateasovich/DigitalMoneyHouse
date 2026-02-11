@@ -17,7 +17,13 @@ interface PayServiceContextType {
   payService: () => Promise<Transaction>
   error: string | null
   clearError: () => void
+  paymentMethod: PaymentMethod
+  setPaymentMethod: React.Dispatch<React.SetStateAction<PaymentMethod>>
+
 }
+
+type PaymentMethod = 'BALANCE' | 'CARD' | null
+
 
 const PayServiceContext = createContext<PayServiceContextType | undefined>(undefined)
 
@@ -28,14 +34,20 @@ const PayServiceProvider = ({ children }: { children: React.ReactNode }) => {
   const [service, setService] = useState<Service | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [searchResult, setSearchResult] = useState<Company[]>([])
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(null)
 
   const { selectedCard } = useCreditCard()
+
 
   const payService = async () => {
     if (!service) return
 
     try {
       setError(null)
+
+      if(!paymentMethod) {
+        return
+      }
 
       const res = await fetch('/api/transactions', {
         method: 'POST',
@@ -81,7 +93,9 @@ const PayServiceProvider = ({ children }: { children: React.ReactNode }) => {
       setSearchResult,
       payService,
       error,
-      clearError
+      clearError,
+      paymentMethod,
+      setPaymentMethod
     }}>{children}</PayServiceContext.Provider>
   )
 }

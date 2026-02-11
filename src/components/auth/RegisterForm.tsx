@@ -142,7 +142,7 @@ const RegisterForm = () => {
                                 }}
                             />
                             <div className=' w-full mt-4 md:flex md:flex-col md:h-full md:relative'>
-                                <Button type='submit' text='Crear cuenta' variant='primary' className='w-full md:py-3 p-2' />
+                                <Button type='submit' text='Crear cuenta' variant='primary' className='w-full md:py-3 p-2' id='createAccButton'/>
                                 {hasErrors && <div className='bg-red-600 text-white w-full text-center mt-3 md:absolute md:-bottom-7 md:left-0 md:right-0'>Completa los campos requeridos</div>}
                             </div>
                         </form>
