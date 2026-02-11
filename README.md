@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💸 DigitalMoneyHouse
 
-## Getting Started
+DigitalMoneyHouse es una **aplicación web de dinero digital** diseñada para permitir a los usuarios gestionar balances, simular transacciones y visualizar su historial de movimientos de forma sencilla y moderna.
 
-First, run the development server:
+> 🚀 Proyecto desarrollado con **Next.js y TypeScript**, enfocado en una experiencia intuitiva para usuarios y una estructura escalable para desarrolladores.
 
-```bash
+---
+
+## 🧩 Características principales
+
+- Registro y autenticación de usuarios (si corresponde).
+- Panel de control con balance y resumen de transacciones.
+- Simulación de ingresos y egresos.
+- Interfaz interactiva y responsiva.
+- Despliegue sencillo (Vercel, Netlify o similar).
+
+---
+
+## 📁 Tecnologías
+
+Este proyecto está construido con:
+
+| Tecnología | Uso |
+|------------|-----|
+| Next.js | Framework principal |
+| TypeScript | Tipado estático |
+| React | Componentes UI |
+| CSS Modules / Tailwind (u otro) | Estilos |
+| Vercel | Despliegue (opcional) |
+
+---
+
+## 🚀 Instalación local
+
+Sigue estos pasos para ejecutar el proyecto en tu máquina:
+
+### 1. Clonar repositorio
+
+git clone https://github.com/AnaMateasovich/DigitalMoneyHouse.git
+
+### 2. Instalar dependencias
+
+npm install
+# o
+yarn install
+
+### 3. Ejecutar en desarrollo
+
 npm run dev
-# or
+# o
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
