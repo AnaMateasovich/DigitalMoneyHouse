@@ -28,7 +28,7 @@ const AddCards = ({ className }: AddCardsProps) => {
                 <>
 
                     <h3 className='font-semibold text-sm'>Agregá tu tarjeta de débito o crédito</h3>
-                    <Link href="/dashboard/tarjetas/crear">
+                    <Link  data-test-id="create-card-link" href="/dashboard/tarjetas/crear">
 
                         <div className='text-[var(--color-primary)] flex justify-between items-center my-6'>
                             <div className='flex gap-4 items-center'>

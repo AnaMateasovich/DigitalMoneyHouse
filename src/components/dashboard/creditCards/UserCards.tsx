@@ -42,10 +42,11 @@ const UserCards = ({ mode, onSelectCard }: UserCardsProps) => {
                             <div className='flex justify-between items-center' >
                                 <div className='flex gap-4 items-center'>
                                     <div className='bg-[var(--color-primary)] w-6  h-6  rounded-full'></div>
-                                    <p>Terminada en {card.last4}</p>
+                                    <p data-test-id="last4-card">Terminada en {card.last4}</p>
                                 </div>
                                 {mode === 'select' ? (
                                     <input
+                                        id={`card-${card.id}`}
                                         type="radio"
                                         name='creditCardSelect'
                                         value={card.id}
@@ -59,7 +60,7 @@ const UserCards = ({ mode, onSelectCard }: UserCardsProps) => {
                                         }}
                                     />
                                 ) : (
-                                    <button className='font-bold text-sm' onClick={() => deleteCard(card.id, card.last4)}>Eliminar</button>
+                                    <button data-test-id={`delete-card-${card.last4}`} className='font-bold text-sm' onClick={() => deleteCard(card.id, card.last4)}>Eliminar</button>
                                 )}
                             </div>
                             <hr className='text-gray-300 my-8 last:mb-2' />

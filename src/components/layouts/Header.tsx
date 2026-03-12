@@ -49,7 +49,7 @@ const Header = () => {
                     </div>
                 
                     <div className='w-full flex gap-3 items-center justify-end '>
-                        <Link href= "/dashboard">
+                        <Link href= "/dashboard" id='dashboard-link'>
                         <div className={`flex p-2 font-bold text-xl rounded-xl gap-[1px] ${darkHeader ? 'bg-[var(--color-primary)] text-[var(--color-secondary)] ' : 'bg-[var(--color-secondary)] text-[var(--color-primary)] '}`}>
                             <p>{user.firstname.charAt(0).toUpperCase()}</p>
                             <p>{user.lastname.charAt(0).toUpperCase()}</p>

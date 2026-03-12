@@ -51,7 +51,7 @@ const ResumeService = () => {
                     }} />
             </div>
             <div className='flex justify-end'>
-                <Button text='Pagar' className='py-2 px-16' onClick={handlePayService} />
+                <Button id="pay-payservice-btn" text='Pagar' className='py-2 px-16' onClick={handlePayService} />
             </div>
         </section>
     )

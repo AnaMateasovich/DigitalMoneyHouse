@@ -16,6 +16,7 @@ const EnterAmount = () => {
       <input
         type="number"
         name="amount"
+        id="enter-amount-input"
         value={amount ?? ''}
         className="w-full placeholder:text-gray-500 rounded-lg py-3 px-4 bg-gray-200 text-[#201F22] my-4"
         placeholder="$0"

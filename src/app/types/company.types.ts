@@ -3,4 +3,6 @@ export type Company = {
     name: string
     date: string
     invoice_value: string
+    src: string
+
 }

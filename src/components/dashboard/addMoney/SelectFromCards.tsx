@@ -31,7 +31,7 @@ const SelectFromCards = () => {
         </div>
       ) : (
         <div className='flex justify-end mt-4'>
-          <Button text='Continuar' disabled className='bg-gray-400 border-gray-400 py-2 px-8' />
+          <Button text='Continuar' disabled className='bg-gray-400 border-gray-400 py-2 px-8'/>
         </div>
       )}
     </>

@@ -40,6 +40,7 @@ const ServicesCard = () => {
             <button
               className='font-semibold'
               onClick={() => goToPayService(companie.id)}
+              data-test-id={`select-service-${companie.id}`}
             >
               Seleccionar
             </button>

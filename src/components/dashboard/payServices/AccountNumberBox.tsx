@@ -47,6 +47,7 @@ export const AccountNumberBox = () => {
           <div className='bg-[var(--color-secondary)] rounded-xl p-6 pb-16'>
             <h3 className='h3 text-[var(--color-primary)]'>Número de cuenta <br />sin el primer 2</h3>
             <input
+            data-test-id="payservice-cod-box"
               type="number"
               placeholder='37289701912'
               value={accountNumber}
@@ -55,7 +56,7 @@ export const AccountNumberBox = () => {
             />
           </div>
           <div className='flex justify-end mt-4'>
-            <Button text='Continuar' className='py-3 px-10' onClick={isValid} />
+            <Button id="continue-btn-payService" text='Continuar' className='py-3 px-10' onClick={isValid} />
           </div>
         </>
       ) : (

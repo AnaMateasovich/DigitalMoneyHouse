@@ -9,7 +9,7 @@ const companies = [
         description: 'Empresa Provincial de la Energía'
     },
     {
-        id: 2,
+        id: 6,
         name: 'ASSA',
         category: 'Agua',
         date: '2025-11-18',
@@ -18,7 +18,7 @@ const companies = [
         description: 'Aguas Santafesinas S.A.'
     },
     {
-        id: 3,
+        id: 2,
         name: 'Litoral Gas',
         category: 'Gas',
         date: '2025-11-18',
@@ -27,7 +27,7 @@ const companies = [
         description: 'Distribuidora de Gas del Litoral'
     },
     {
-        id: 4,
+        id: 3,
         name: 'Telecom',
         category: 'Internet',
         date: '2025-11-18',
@@ -36,7 +36,7 @@ const companies = [
         description: 'Servicios de Internet y Telefonía'
     },
     {
-        id: 5,
+        id: 4,
         name: 'Claro',
         category: 'Internet',
         date: '2025-11-18',
@@ -57,7 +57,7 @@ export const serviceBill = [
     id: 2,
     accountNumber: "39871234999",
     name: "Litoral Gas",
-    amount: 22000
+    amount: 2000
   },
   {
     id: 3,

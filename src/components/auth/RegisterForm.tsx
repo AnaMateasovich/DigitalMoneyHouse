@@ -37,8 +37,7 @@ const RegisterForm = () => {
                 throw new Error(errorData.error || 'Error al registrar')
             }
             const registerResponse = await response.json()
-            console.log(registerResponse)
-            router.push("/login")
+            setRegisterComplete(true)
         } catch (error) {
             if (error instanceof Error) {
                 console.error(error)
@@ -150,7 +149,7 @@ const RegisterForm = () => {
                 </>
             ) : (
                 <>
-                    <h2 className='text-[2.3rem] text-white  md:text-[3.3rem]'>Registro Exitoso</h2>
+                    <h2 className='text-[2.3rem] text-white  md:text-[3.3rem]' id="register-success-title">Registro Exitoso</h2>
                     <Image src="/check.png" width={120} height={130} alt="Check de registro exitoso" className='my-2 md:w-[100px]'/>
                     <p className='text-white text-center text-base max-w-4/6 mt-2 md:max-w-3/5 lg:max-w-2/5'>Hemos enviado un correo de confirmación para validar tu email, por favor revisalo para iniciar sesión.</p>
                     <div className='w-3/4 mt-4 md:w-2/5 lg:w-1/5'>

@@ -21,7 +21,7 @@ const PayWithBalanceButton = ({ error }: PayWithBalanceButtonProps) => {
                 <h4 className='font-semibold text-lg'>Dinero disponible</h4>
                 <div className='flex gap-2 items-center'>
                     <p className='text-xl font-semibold'>${account?.available_amount}</p>
-                    <input type='radio' checked={paymentMethod === 'BALANCE'}
+                    <input data-test-id="ps-balance-input" type='radio' checked={paymentMethod === 'BALANCE'}
                     onChange={() => {setPaymentMethod('BALANCE')
                          setSelectedCard(null)
                     }}

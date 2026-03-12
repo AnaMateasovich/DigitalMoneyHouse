@@ -25,7 +25,7 @@ const MakeDeposit = () => {
         <>
             <ReviewRecipt />
             <div className='flex justify-end mt-4'>
-                <Button text='Continuar' onClick={handleMakeDeposit} className='btn-size' />
+                <Button text='Continuar' id='final-btn-deposit' onClick={handleMakeDeposit} className='btn-size' />
             </div>
         </>
     )

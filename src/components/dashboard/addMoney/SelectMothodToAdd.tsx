@@ -14,7 +14,7 @@ const SelectMothodToAdd = () => {
                     <ArrowRight  size={35}/>
                 </div>
             </Link>
-            <Link href="/dashboard/cargar-dinero/tarjetas">
+            <Link id='deposit-from-cc-btn' href="/dashboard/cargar-dinero/tarjetas">
                 <div className='flex justify-between bg-[var(--color-secondary)] text-[var(--color-primary)] items-center rounded-xl px-5 py-8 shadow-md'>
                     <div className='flex gap-5 items-center'>
                         <CreditCard strokeWidth={1} size={40}/>
